@@ -1,0 +1,22 @@
+#book-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+#book-list li {
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 12px;
+}
+
+#book-list li h3,
+#book-list li p {
+  margin: 0;
+}
