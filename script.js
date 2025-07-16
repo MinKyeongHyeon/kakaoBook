@@ -53,7 +53,7 @@ async function searchBooks(page = 1) {
     if (data.documents.length === 0) {
       $bookList.innerHTML = '<li>검색 결과가 없습니다.</li>';
       // 페이지네이션 숨기기
-      $pagination.style.display = 'none';
+      $pagination.innerHTML = '';
       return;
     }
 
@@ -64,7 +64,7 @@ async function searchBooks(page = 1) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     // 2-8. 페이지네이션 정보 업데이트
     // totalPages(data.meta.pageable_count 활용)
-    totalPages = data.meta.pageable_count;
+    totalPages = Math.min(50, Math.ceil(data.meta.pageable_count / 10));
     // currentPage 업데이트
     currentPage = page;
     // 페이지네이션 렌더링 함수 호출
@@ -73,7 +73,7 @@ async function searchBooks(page = 1) {
     console.error('검색 실패:', error);
     $bookList.innerHTML = '<li>검색 중 오류가 발생했습니다.</li>';
     // 에러 시 페이지네이션 숨기기
-    $pagination.style.display = 'none';
+    $pagination.innerHTML = '';
   }
 }
 
@@ -121,12 +121,9 @@ function renderPagination(totalPages, currentPage) {
   const maxButtons = 5;
   // startPage와 endPage 계산
   // 현재 페이지 - 2?
-  const startPage = currentPage > 3 ? currentPage - 2 : 1;
+  const startPage = Math.max(1, currentPage - 2);
   // 전체 페이지 수가 5보다 작으면 전체 페이지 수로 설정
-  const endPage =
-    totalPages > startPage + maxButtons - 1
-      ? startPage + maxButtons - 1
-      : totalPages;
+  const endPage = Math.min(totalPages, startPage + 4);
 
   // 현재 페이지면 active 클래스 추가
   // 현재 페이지 찾기
