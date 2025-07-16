@@ -20,3 +20,19 @@
 #book-list li p {
   margin: 0;
 }
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+#pagination button {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+}
+#pagination button.active {
+  background-color: dodgerblue;
+  color: white;
+}
